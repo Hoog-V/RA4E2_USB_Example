@@ -11,14 +11,11 @@ manifest:
   - name: zephyrproject
     url-base: https://github.com/Hoog-V
 
-  - name: renesas
-    url-base: https://github.com/Hoog-V
-
   projects:
   - name: zephyr
     repo-path: zephyr
     remote: zephyrproject
-    revision: 70de910d6edc9c956cacd8fcaea3e9e9d937932d
+    revision: 53c0536a72123272f43746aa71822ee319821eaa
     import:
       path-prefix: external
       name-allowlist:
@@ -36,8 +33,4 @@ manifest:
       - zscilib
       - tf-psa-crypto
       - trusted-firmware-m
-  - name: hal_renesas
-    repo-path: hal_renesas
-    remote: renesas
-    revision: 879d0956d9db91820b82d00804e962bb81bf8c0e
-    path: external/modules/hal/hal_renesas
+      - hal_renesas
