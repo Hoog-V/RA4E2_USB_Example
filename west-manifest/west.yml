@@ -1,0 +1,43 @@
+manifest:
+  remotes:
+
+  # Both Zephyr and renesas hal remotes are forks.
+  # Because they contain not yet merged custom changes 
+  # for the RA4E2 microcontroller USB peripheral
+  # zephyr: PR draft: https://github.com/zephyrproject-rtos/zephyr/pull/108817
+  # hal_renesas: PR is pending: https://github.com/zephyrproject-rtos/hal_renesas/pull/208
+  # When merged the remotes will be changed to upstream
+
+  - name: zephyrproject
+    url-base: https://github.com/Hoog-V
+
+  - name: renesas
+    url-base: https://github.com/Hoog-V
+
+  projects:
+  - name: zephyr
+    repo-path: zephyr
+    remote: zephyrproject
+    revision: 70de910d6edc9c956cacd8fcaea3e9e9d937932d
+    import:
+      path-prefix: external
+      name-allowlist:
+      - cmsis_6
+      - picolibc
+      - segger
+      - mcuboot
+      - mbedtls
+      - crypto
+      - libmetal
+      - littlefs
+      - net-tools
+      - tinycrypt
+      - zcbor
+      - zscilib
+      - tf-psa-crypto
+      - trusted-firmware-m
+  - name: hal_renesas
+    repo-path: hal_renesas
+    remote: renesas
+    revision: 879d0956d9db91820b82d00804e962bb81bf8c0e
+    path: external/modules/hal/hal_renesas

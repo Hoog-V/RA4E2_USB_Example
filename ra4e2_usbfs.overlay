@@ -1,0 +1,66 @@
+/* Port 8 must be enabled to expose the USB FS pins (P8.14, P8.15). */
+&ioport8 {
+    status = "okay";
+};
+
+&pinctrl {
+    usbfs_default: usbfs_default {
+        group1 {
+            /* USB FS differential pair (USBP = P8.15, USBN = P8.14) */
+            /* and VBUS sense (P4.7).                                 */
+            psels = <RA_PSEL(RA_PSEL_USBFS, 8, 15)>,
+                    <RA_PSEL(RA_PSEL_USBFS, 8, 14)>,
+                    <RA_PSEL(RA_PSEL_USBFS, 4, 7)>;
+            drive-strength = "high";
+        };
+    };
+};
+
+/* ICLK (instruction clock) driven from PLL at 240 MHz / 2 = 120 MHz. */
+&iclk {
+    compatible = "renesas,ra-cgc-pclk";
+    clock-frequency = <120000000>;
+    div = <2>;
+    #clock-cells = <2>;
+    status = "okay";
+};
+
+/* UCLK (USB clock) must be exactly 48 MHz.                          */
+/* PLL output = XTAL (20 MHz) / 1 * 12 = 240 MHz.                    */
+/* UCLK = 240 MHz / 5 = 48 MHz ...                                   */
+&uclk {
+    status = "okay";
+    div = <5>;
+    clocks = <&pll>;
+};
+
+/* PLL which feeds into all clocks above */
+/* PLL output = <mul> * XTAL = 12 * 20 = 240 MHz                     */
+&pll {
+    clocks = <&xtal>;
+    div = <1>;
+    mul = <12 0>;
+    status = "okay";
+};
+
+/* USB FS peripheral. Runs at full-speed (12 Mbit/s).                */
+/* Exposes a single CDC ACM UART device used as the serial console   */
+/* and data interface.                                               */
+&usbfs {
+    status = "okay";
+    pinctrl-0 = <&usbfs_default>;
+    pinctrl-names = "default";
+    maximum-speed = "full-speed";
+    zephyr_udc0: udc {
+        status = "okay";
+        cdc_acm_uart0: cdc_acm_uart0 {
+            compatible = "zephyr,cdc-acm-uart";
+        };
+    };
+};
+/ {
+    chosen {
+        zephyr,console = &cdc_acm_uart0;
+    };
+};
+
