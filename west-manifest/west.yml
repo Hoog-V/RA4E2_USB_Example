@@ -15,7 +15,7 @@ manifest:
   - name: zephyr
     repo-path: zephyr
     remote: zephyrproject
-    revision: 53c0536a72123272f43746aa71822ee319821eaa
+    revision: a5d1c3a426330893985b0e1caa42e056c863836f
     import:
       path-prefix: external
       name-allowlist:
