@@ -9,13 +9,13 @@ manifest:
   # When merged the remotes will be changed to upstream
 
   - name: zephyrproject
-    url-base: https://github.com/Hoog-V
+    url-base: https://github.com/zephyrproject-rtos
 
   projects:
   - name: zephyr
     repo-path: zephyr
     remote: zephyrproject
-    revision: a5d1c3a426330893985b0e1caa42e056c863836f
+    revision: pull/108817/head
     import:
       path-prefix: external
       name-allowlist:
